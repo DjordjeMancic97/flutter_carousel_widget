@@ -71,10 +71,14 @@ class FlutterCarouselState extends State<FlutterCarousel>
       widget.itemCount ?? widget.items?.length,
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        setState(() {
           _currentPage = realIndex;
           _pageDelta = _pageController!.page! - _pageController!.page!.floor();
-        }));
+        });
+      }
+    });
   }
 
   @override
